@@ -6,6 +6,7 @@ import java.util.Objects;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import com.aOlindo.workshopmongodb.dto.AtualizaUserDTO;
 import com.aOlindo.workshopmongodb.dto.CadastroUserDTO;
 
 @Document(collection = "user")
@@ -32,6 +33,15 @@ public class User implements Serializable{
 		this.id = id;
 		this.name = name;
 		this.email = email;
+	}
+	
+	public void atualiza(AtualizaUserDTO atualiza) {
+		if(atualiza.getName() != null) {
+			this.name = atualiza.getName();
+		}
+		if(atualiza.getEmail() != null) {
+			this.email = atualiza.getEmail();
+		}
 	}
 
 	public String getId() {
