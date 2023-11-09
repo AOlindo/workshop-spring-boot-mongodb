@@ -5,41 +5,26 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.aOlindo.workshopmongodb.domain.Post;
 import com.aOlindo.workshopmongodb.domain.User;
 import com.aOlindo.workshopmongodb.dto.AtualizaUserDTO;
 import com.aOlindo.workshopmongodb.dto.CadastroUserDTO;
-import com.aOlindo.workshopmongodb.repository.UserRepository;
+import com.aOlindo.workshopmongodb.repository.PostRepository;
 import com.aOlindo.workshopmongodb.service.exception.ObjectNotFoundException;
 
 @Service
 public class PostService {
 
 	@Autowired
-	private UserRepository userRepository;
+	private PostRepository postRepository;
 	
-	public List<User> findAll(){
-		return userRepository.findAll();
+	public List<Post> findAll(){
+		return postRepository.findAll();
 	}
 	
-	public User findById(String id) {
-		User user = userRepository.findById(id).orElseThrow(() -> new ObjectNotFoundException("Id não encontrado"));
-		return user;
+	public Post findById(String id) {
+		Post post = postRepository.findById(id).orElseThrow(() -> new ObjectNotFoundException("Id não encontrado"));
+		return post;
 	}
 	
-	public User insert(CadastroUserDTO userDto) {
-		User user = new User(userDto);
-		return userRepository.save(user);
-	}
-	
-	public void delete(String id) {
-		findById(id);
-		userRepository.deleteById(id);
-	}
-	
-	public User update(AtualizaUserDTO atualizaDto, String id) {
-		User user = findById(id);
-		user.atualiza(atualizaDto);
-		return userRepository.save(user);
-		
-	}
 }
