@@ -15,12 +15,12 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.aOlindo.workshopmongodb.domain.Post;
 import com.aOlindo.workshopmongodb.domain.User;
 import com.aOlindo.workshopmongodb.dto.AtualizaUserDTO;
 import com.aOlindo.workshopmongodb.dto.CadastroUserDTO;
 import com.aOlindo.workshopmongodb.dto.UserDTO;
 import com.aOlindo.workshopmongodb.service.UserService;
-import com.fasterxml.jackson.databind.ser.std.UUIDSerializer;
 
 @RestController
 @RequestMapping("/users")
@@ -60,5 +60,13 @@ public class UserResource {
 		return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
 	}
 	
+	@GetMapping("/{id}/posts")
+	public ResponseEntity<List<Post>> findPosts(@PathVariable String id){
+		User user = userService.findById(id);
+		return ResponseEntity.ok().body(user.getPosts());
+	}
+		
+	}
 	
-}
+	
+
